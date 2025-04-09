@@ -2,6 +2,7 @@
 	import type { Snippet } from "svelte";
 	import { MetaTags, type OpenGraph } from "svelte-meta-tags";
 
+	import { theme } from "$lib/themer.svelte";
 	import OG_IMAGE_STR from "$lib/assets/og_image.png";
 
 	const { children }: { children: Snippet } = $props();
@@ -9,12 +10,23 @@
 	type OGImage = NonNullable<OpenGraph["images"]>[0];
 	const ogImage: OGImage = { url: OG_IMAGE_STR, alt: "The IEEEnova place slide" };
 
-	const { children }: Props = $props();
+	$effect(() => {
+		document.documentElement.dataset.theme = theme.current;
+	});
 </script>
 
 <svelte:head>
 	<title>IEEEnova | The Final Destination</title>
 	<link rel="preload" href="fonts/atkn.subset.woff2" as="font" type="font/woff2" crossorigin="" />
+	<script>
+		{
+			const scheme = localStorage.getItem("user-theme");
+			document.documentElement.dataset.theme =
+				!scheme || scheme === "system"
+					? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+					: scheme;
+		}
+	</script>
 </svelte:head>
 
 <!-- @TODO complete this shit, maybe add twitter, facebook?
