@@ -5,6 +5,8 @@
 	import { theme } from "$lib/themer.svelte";
 	import Marquee from "./Marquee.svelte";
 	import ThemeChanger from "./ThemeChanger.svelte";
+
+	const { hide = false }: { hide?: boolean } = $props();
 </script>
 
 <header>
@@ -18,7 +20,7 @@
 	>
 	<div>
 		<ThemeChanger />
-		<a href="/register" data-special><kbd>r</kbd>#register</a>
+		<a href="/register" data-special class:hide><kbd>r</kbd>#register</a>
 	</div>
 </header>
 
@@ -36,8 +38,6 @@
 	}
 
 	a {
-		display: block;
-
 		&[href="/register"] {
 			display: flex;
 			place-items: center;
@@ -56,6 +56,10 @@
 				background-color: var(--c-btn-hover);
 				transform: scale(1.05) rotate(-1deg);
 			}
+		}
+
+		&.hide {
+			display: none;
 		}
 
 		&[href="/"] {

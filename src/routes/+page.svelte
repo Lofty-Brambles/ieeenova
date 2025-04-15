@@ -6,9 +6,6 @@
 	import Timer from "$lib/components/Timer.svelte";
 
 	import heroImg from "$lib/assets/hero-image.png?enhanced";
-	import type { PageProps } from "./$types";
-
-	const { data, form }: PageProps = $props();
 </script>
 
 <Header />

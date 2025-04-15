@@ -1,36 +1,31 @@
 <script lang="ts">
-	import { enhance } from "$app/forms";
 	import { toast } from "svelte-sonner";
+	import { enhance } from "$app/forms";
+	import type { PageProps } from "./$types";
 
-	const fields = [
-		{ name: "name", type: "text" },
-		{ name: "email", type: "email" },
-	] satisfies { name: string; type: string }[];
+	let { data }: PageProps = $props();
 
 	let isLoading: boolean = $state(false);
 </script>
 
 <form
 	method="POST"
-	use:enhance={() => {
+	use:enhance={({ formData }) => {
 		isLoading = true;
+		formData.append("cell", data.cell);
 		return async ({ result }) => {
 			isLoading = false;
 			if (result.type === "success") {
-				toast.success("You are successfully registered! Check your email!");
+				toast.success("You attendance is marked!");
 			} else {
-				toast.error("Something went wrong! Please try again.");
+				toast.error(JSON.stringify(result));
 			}
 		};
 	}}
 >
-	{#each fields as field}
-		<div class="container">
-			<input name={field.name} id={field.name} type={field.type} placeholder=" " /><label
-				for={field.name}>{field.name[0].toUpperCase() + field.name.slice(1)}</label
-			>
-		</div>
-	{/each}
+	<div class="container">
+		<input name="code" id="code" placeholder=" " /><label for="code">Admin code</label>
+	</div>
 	<button type="submit" class="container" disabled={isLoading}>Let me in!</button>
 </form>
 
