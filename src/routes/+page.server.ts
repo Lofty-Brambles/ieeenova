@@ -1,11 +1,4 @@
-import {
-	CF_PAGES_URL,
-	FROM_EMAIL,
-	GOOGLE_PRIVATE_KEY,
-	GOOGLE_SERVICE_ACCOUNT_EMAIL,
-	SENDGRID_KEY,
-	SHEET_ID,
-} from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { fail } from "@sveltejs/kit";
 
 import { JWT } from "google-auth-library";
@@ -23,12 +16,12 @@ export const actions = {
 		];
 
 		const jwt = new JWT({
-			email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-			key: GOOGLE_PRIVATE_KEY,
+			email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+			key: env.GOOGLE_PRIVATE_KEY,
 			scopes: SCOPES,
 		});
 
-		sgMail.setApiKey(SENDGRID_KEY);
+		sgMail.setApiKey(env.SENDGRID_KEY);
 
 		const data = await request.formData();
 		const email = data.get("email")?.toString().trim();
@@ -41,14 +34,14 @@ export const actions = {
 		}
 
 		const setting = { name, email, attendance: false };
-		const document = new GoogleSpreadsheet(SHEET_ID, jwt);
+		const document = new GoogleSpreadsheet(env.SHEET_ID, jwt);
 		await document.loadInfo();
 		const sheet = document.sheetsByIndex[0];
 		await sheet.addRow(setting);
 
-		const CLEAN_URL = CF_PAGES_URL.endsWith("/")
-			? CF_PAGES_URL.slice(0, CF_PAGES_URL.length - 1)
-			: CF_PAGES_URL;
+		const CLEAN_URL = env.CF_PAGES_URL.endsWith("/")
+			? env.CF_PAGES_URL.slice(0, env.CF_PAGES_URL.length - 1)
+			: env.CF_PAGES_URL;
 		const ENCODED_URI = encodeURIComponent(email);
 		const qr = await qrcode.toDataURL(`${CLEAN_URL}/attend/${ENCODED_URI}`);
 
@@ -77,7 +70,7 @@ export const actions = {
 			},
 		];
 
-		await sgMail.send({ from: FROM_EMAIL, to: email, subject, html, attachments });
+		await sgMail.send({ from: env.FROM_EMAIL, to: email, subject, html, attachments });
 		return { success: true };
 	},
 } satisfies Actions;

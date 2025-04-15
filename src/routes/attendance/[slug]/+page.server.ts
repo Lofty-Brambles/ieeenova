@@ -1,12 +1,7 @@
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
-import {
-	ADMIN_PASSCODE,
-	GOOGLE_PRIVATE_KEY,
-	GOOGLE_SERVICE_ACCOUNT_EMAIL,
-	SHEET_ID,
-} from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import type { PageServerLoad } from "./$types";
 import { error, fail, type Actions } from "@sveltejs/kit";
 
@@ -17,15 +12,15 @@ export const load: PageServerLoad = async ({ params }) => {
 	];
 
 	const jwt = new JWT({
-		email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-		key: GOOGLE_PRIVATE_KEY,
+		email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+		key: env.GOOGLE_PRIVATE_KEY,
 		scopes: SCOPES,
 	});
 
 	let cell = "B";
 	const email = decodeURIComponent(params.slug);
 
-	const document = new GoogleSpreadsheet(SHEET_ID, jwt);
+	const document = new GoogleSpreadsheet(env.SHEET_ID, jwt);
 	await document.loadInfo();
 	const sheet = document.sheetsByIndex[0];
 	await sheet.loadCells(`B1:B${sheet.rowCount}`);
@@ -46,8 +41,8 @@ export const actions = {
 		];
 
 		const jwt = new JWT({
-			email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-			key: GOOGLE_PRIVATE_KEY,
+			email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+			key: env.GOOGLE_PRIVATE_KEY,
 			scopes: SCOPES,
 		});
 
@@ -57,12 +52,12 @@ export const actions = {
 
 		if (!code || !cell) {
 			return fail(400, { missingData: true });
-		} else if (code !== ADMIN_PASSCODE) {
+		} else if (code !== env.ADMIN_PASSCODE) {
 			return fail(401, { message: "Missing/Incorrect credentials." });
 		}
 
 		const markedCells = `A${cell[1]}:C${cell[1]}`;
-		const document = new GoogleSpreadsheet(SHEET_ID, jwt);
+		const document = new GoogleSpreadsheet(env.SHEET_ID, jwt);
 		await document.loadInfo();
 		const sheet = document.sheetsByIndex[0];
 		await sheet.loadCells(markedCells);
