@@ -1,4 +1,1 @@
 name = "ieeenova"
-
-[site]
-bucket = "./public"
