@@ -1,38 +1,32 @@
-# sv
+# The IEEEnova website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This is an event page for an imaginary IEEE event called IEEEnova.
 
-## Creating a project
+## Dependancies
 
-If you're seeing this, you've probably already done this step. Congrats!
+This website is dependant on the following:
 
-```bash
-# create a new project in the current directory
-npx sv create
+- Cloudflare Pages: The website is hosted on Cloudflare pages and uses a cloudflare adaptor to
+  handle the backend actions. Forms are progressively enhanced to ensure function without JS.
+- Google Sheets API: It leverages the sheets API to dump the data of attendees and their attendance
+  unto it.
+- Sendgrid: It uses Twilio's Sendgrid as a service to send out QRs for marking the attendance of
+  attendees.
 
-# create a new project in my-app
-npx sv create my-app
-```
+To get it up and running, you will need to use Cloudflare pages and replace the values in
+`.env.example` from the dependancies.
 
-## Developing
+## How it works
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+It leverages a google spreadsheet as a database. While less "secure", it scales just well for a
+small event. On registration, a row of data is written to the spreadsheet and an email is send with
+a QR.
 
-```bash
-npm run dev
+Any admin can then use the QR or visit the link provided in the email, enter a password and the
+attendance would be marked as `TRUE` in the spreadsheet.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Demonstrations
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- The website for demo lives here: https://ieeenova.pages.dev
+- The spreadsheet for the data records is here:
+  https://docs.google.com/spreadsheets/d/1FSAcKUPSCjpGI3FzJXiNFeeQG949-Qi3pceqniN1UdM/edit?usp=sharing

@@ -5,6 +5,7 @@ import {
 	ADMIN_PASSCODE,
 	GOOGLE_PRIVATE_KEY,
 	GOOGLE_SERVICE_ACCOUNT_EMAIL,
+	SHEET_ID,
 } from "$env/static/private";
 import type { PageServerLoad } from "./$types";
 import { error, fail, type Actions } from "@sveltejs/kit";
@@ -14,7 +15,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		"https://www.googleapis.com/auth/spreadsheets",
 		"https://www.googleapis.com/auth/drive.file",
 	];
-	const SHEET_ID = "1FSAcKUPSCjpGI3FzJXiNFeeQG949-Qi3pceqniN1UdM";
 
 	const jwt = new JWT({
 		email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -44,7 +44,6 @@ export const actions = {
 			"https://www.googleapis.com/auth/spreadsheets",
 			"https://www.googleapis.com/auth/drive.file",
 		];
-		const SHEET_ID = "1FSAcKUPSCjpGI3FzJXiNFeeQG949-Qi3pceqniN1UdM";
 
 		const jwt = new JWT({
 			email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
