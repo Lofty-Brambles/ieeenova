@@ -1,11 +1,14 @@
-<script>
+<script lang="ts">
 	import Fullsize from "$lib/components/Fullsize.svelte";
 	import Header from "$lib/components/Header.svelte";
 	import Cards from "$lib/components/Cards.svelte";
 	import FormFields from "$lib/components/FormFields.svelte";
+	import Timer from "$lib/components/Timer.svelte";
 
 	import heroImg from "$lib/assets/hero-image.png?enhanced";
-	import Timer from "$lib/components/Timer.svelte";
+	import type { PageProps } from "./$types";
+
+	const { data, form }: PageProps = $props();
 </script>
 
 <Header />

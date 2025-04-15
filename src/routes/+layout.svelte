@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
+	import { Toaster } from "svelte-sonner";
 	import { MetaTags, type OpenGraph } from "svelte-meta-tags";
 	import { shortcut, type ShortcutEventDetail, type ShortcutParameter } from "@svelte-put/shortcut";
 
@@ -53,6 +54,8 @@
 <!-- @TODO add a sitemap as well.. think on how to add domain though -->
 
 {@render children()}
+
+<Toaster expand={true} richColors />
 
 <style>
 	:global {

@@ -1,13 +1,29 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
+	import { toast } from "svelte-sonner";
 
 	const fields = [
 		{ name: "name", type: "text" },
 		{ name: "email", type: "email" },
 	] satisfies { name: string; type: string }[];
+
+	let isLoading: boolean = $state(false);
 </script>
 
-<form method="POST" use:enhance>
+<form
+	method="POST"
+	use:enhance={() => {
+		isLoading = true;
+		return async ({ result }) => {
+			isLoading = false;
+			if (result.type === "success") {
+				toast.success("You are successfully registered! Check your email!");
+			} else {
+				toast.error("Something went wrong! Please try again.");
+			}
+		};
+	}}
+>
 	{#each fields as field}
 		<div class="container">
 			<input name={field.name} id={field.name} type={field.type} placeholder=" " /><label
@@ -15,7 +31,7 @@
 			>
 		</div>
 	{/each}
-	<button type="submit" class="container">Let me in!</button>
+	<button type="submit" class="container" disabled={isLoading}>Let me in!</button>
 </form>
 
 <style>
