@@ -21,6 +21,7 @@
 		"@svelte-put/qr": "^2.1.0",
 		"@svelte-put/shortcut": "^4.1.0",
 		"@sveltejs/adapter-auto": "^4.0.0",
+		"@sveltejs/adapter-cloudflare": "^7.0.1",
 		"@sveltejs/enhanced-img": "^0.4.4",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
@@ -44,7 +45,8 @@
 	"pnpm": {
 		"onlyBuiltDependencies": [
 			"esbuild",
-			"sharp"
+			"sharp",
+			"workerd"
 		]
 	},
 	"dependencies": {

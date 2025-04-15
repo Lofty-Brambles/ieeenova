@@ -15,8 +15,11 @@
 		document.documentElement.dataset.theme = theme.current;
 	});
 
-	const callback = (event: ShortcutEventDetail) => {};
-	const shortcuts: ShortcutParameter = { trigger: [{ key: "r", callback }] };
+	const callback = (_: ShortcutEventDetail) => {
+		const register = document.querySelector('input[name="name"]');
+		(register as HTMLInputElement).focus();
+	};
+	const shortcuts: ShortcutParameter = { trigger: [{ key: "r", modifier: ["alt"], callback }] };
 </script>
 
 <svelte:head>

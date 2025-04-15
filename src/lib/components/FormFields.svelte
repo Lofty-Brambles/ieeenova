@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { enhance } from "$app/forms";
+
 	const fields = [
 		{ name: "name", type: "text" },
 		{ name: "email", type: "email" },
 	] satisfies { name: string; type: string }[];
 </script>
 
-<form action="">
+<form method="POST" use:enhance>
 	{#each fields as field}
 		<div class="container">
 			<input name={field.name} id={field.name} type={field.type} placeholder=" " /><label
