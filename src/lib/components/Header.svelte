@@ -1,10 +1,14 @@
 <script lang="ts">
 	import darkLogoURL from "$lib/assets/ieee-logo-dark.webp?enhanced";
 	import lightLogoURL from "$lib/assets/ieee-logo-light.webp?enhanced";
+
 	import { theme } from "$lib/themer.svelte";
+	import Marquee from "./Marquee.svelte";
+	import ThemeChanger from "./ThemeChanger.svelte";
 </script>
 
 <header>
+	<Marquee text="The time is now, and your moment is here!" rpm={20} />
 	<a href="/" aria-label="The logo for IEEE Student Branch" data-special
 		>{#if theme.current == "dark"}
 			<enhanced:img src={darkLogoURL} alt="IEEE Student Branch logo"></enhanced:img>
@@ -12,7 +16,10 @@
 			<enhanced:img src={lightLogoURL} alt="IEEE Student Branch logo"></enhanced:img>
 		{/if}</a
 	>
-	<a href="/register" data-special>#register</a>
+	<div>
+		<ThemeChanger />
+		<a href="/register" data-special><kbd>r</kbd>#register</a>
+	</div>
 </header>
 
 <style>
@@ -23,11 +30,19 @@
 		border-bottom: 1px solid var(--c-divider);
 		padding: 16px 4vw;
 	}
+	div {
+		display: flex;
+		gap: 16px;
+	}
 
 	a {
 		display: block;
 
 		&[href="/register"] {
+			display: flex;
+			place-items: center;
+			gap: 8px;
+
 			padding: 8px 16px;
 			border-radius: 500px;
 			transition: all 250ms;
@@ -46,5 +61,15 @@
 		&[href="/"] {
 			width: 7.5rem;
 		}
+	}
+
+	kbd {
+		height: 24px;
+		width: 24px;
+
+		border: 1px solid var(--c-surface-active);
+		border-radius: 4px;
+		text-align: center;
+		line-height: 20px;
 	}
 </style>

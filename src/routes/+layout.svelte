@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 	import { MetaTags, type OpenGraph } from "svelte-meta-tags";
+	import { shortcut, type ShortcutEventDetail, type ShortcutParameter } from "@svelte-put/shortcut";
 
 	import { theme } from "$lib/themer.svelte";
 	import OG_IMAGE_STR from "$lib/assets/og_image.png";
@@ -13,6 +14,9 @@
 	$effect(() => {
 		document.documentElement.dataset.theme = theme.current;
 	});
+
+	const callback = (event: ShortcutEventDetail) => {};
+	const shortcuts: ShortcutParameter = { trigger: [{ key: "r", callback }] };
 </script>
 
 <svelte:head>
@@ -23,11 +27,15 @@
 			const scheme = localStorage.getItem("user-theme");
 			document.documentElement.dataset.theme =
 				!scheme || scheme === "system"
-					? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+					? window.matchMedia("(prefers-color-scheme: dark)").matches
+						? "dark"
+						: "light"
 					: scheme;
 		}
 	</script>
 </svelte:head>
+
+<svelte:window use:shortcut={shortcuts} />
 
 <!-- @TODO complete this shit, maybe add twitter, facebook?
   - https://www.maier.tech/posts/how-to-add-a-basic-seo-component-to-sveltekit 

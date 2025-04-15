@@ -1,5 +1,5 @@
-- about
-- desc
+- about [almost]
+- desc [done]
 - speakers
 - timeline
 - footer
