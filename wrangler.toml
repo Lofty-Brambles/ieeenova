@@ -1,1 +1,2 @@
 name = "ieeenova"
+compatibility_flags = [ "nodejs_compat" ]
