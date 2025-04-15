@@ -20,7 +20,7 @@
 	>
 	<div>
 		<ThemeChanger />
-		<a href="/register" data-special class:hide><kbd>r</kbd>#register</a>
+		<a href="#register" data-special class:hide><kbd>r</kbd>#register</a>
 	</div>
 </header>
 
@@ -38,7 +38,7 @@
 	}
 
 	a {
-		&[href="/register"] {
+		&[href="#register"] {
 			display: flex;
 			place-items: center;
 			gap: 8px;
