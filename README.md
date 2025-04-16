@@ -27,8 +27,10 @@ attendance would be marked as `TRUE` in the spreadsheet.
 ## Demonstrations ⚡
 
 The demo might take some time due to render's free tier taking it's time to spin up. Especially with
-the emails.
+the emails. In case sendgrid decides to be moody, you the QR for your attendance will be of the form
+`/attendance/{encoded_email}`. You can use the **admin passcode** to mark their attendance.
 
 - The website for demo lives here: https://ieeenova.onrender.com
 - The spreadsheet for the data records is here:
   https://docs.google.com/spreadsheets/d/1FSAcKUPSCjpGI3FzJXiNFeeQG949-Qi3pceqniN1UdM/edit?usp=sharing
+- The admin passcode is `apple@mango`
