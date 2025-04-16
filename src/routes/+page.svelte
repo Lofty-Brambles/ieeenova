@@ -36,7 +36,7 @@
 	<p>Put down your names, be there or be square!</p>
 	<FormFields />
 </section>
-<section><p>Made with hate, and 70 buckets of coffee.</p></section>
+<section><p>Made with hate, and 70 buckets of ☕.</p></section>
 
 <style>
 	:global(.hero-text) {

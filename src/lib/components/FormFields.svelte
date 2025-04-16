@@ -38,14 +38,16 @@
 	form {
 		display: grid;
 		gap: 24px;
+		justify-self: center;
+		width: calc(100% - 24px);
+		max-width: 30ch;
 	}
 
 	.container {
 		position: relative;
 		justify-self: center;
 		align-self: center;
-		width: 30ch;
-		min-width: 320px;
+		width: 100%;
 	}
 
 	button {
